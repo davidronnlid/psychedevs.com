@@ -23,12 +23,12 @@ const port = process.env.PORT || "8000";
 /**
  * DB config
  */
-// const cors = require("cors");
-// app.use(cors());
-// app.use(express.json());
-// app.use(require("./server/routes/record"));
-// // get driver connection
-// const dbo = require("./db/conn");
+const cors = require("cors");
+app.use(cors());
+app.use(express.json());
+app.use(require("./server/routes/record"));
+// get driver connection
+const dbo = require("./server/db/conn");
 
 /**
  * Session Configuration (New!)
@@ -121,8 +121,8 @@ app.get("/user", secured, (req, res, next) => {
  * Server Activation
  */
 app.listen(port, () => {
-  // dbo.connectToServer(function (err) {
-  //   if (err) console.error(err);
-  // });
+  dbo.connectToServer(function (err) {
+    if (err) console.error(err);
+  });
   console.log(`Listening to requests on http://localhost:${port}`);
 });
