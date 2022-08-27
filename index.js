@@ -96,7 +96,6 @@ app.use("/", authRouter);
 /**
  * Routes Definitions
  */
-
 const secured = (req, res, next) => {
   if (req.user) {
     return next();
@@ -110,6 +109,8 @@ app.get("/", (req, res) => {
 
 app.get("/user", secured, (req, res, next) => {
   const { _raw, _json, ...userProfile } = req.user;
+
+  console.log(userProfile);
 
   res.render("user", {
     title: "Profile",

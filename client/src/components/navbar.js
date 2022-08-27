@@ -12,15 +12,6 @@ export default function Navbar() {
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <button
-          onSubmit={() => {
-            fetch(`http://localhost:8000/login`, {
-              method: "GET",
-            });
-          }}
-        >
-          fetcg
-        </button>
-        <button
           className="navbar-toggler"
           type="button"
           data-toggle="collapse"

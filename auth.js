@@ -9,6 +9,8 @@ const passport = require("passport");
 const querystring = require("querystring");
 
 require("dotenv").config();
+const dbo = require("./server/db/conn");
+
 /**
  * Routes Definitions
  */
@@ -30,10 +32,20 @@ router.get("/callback", (req, res, next) => {
     if (!user) {
       return res.redirect("/login");
     }
+
     req.logIn(user, (err) => {
       if (err) {
         return next(err);
       }
+
+      // Save user data to DB
+      let db_connect = dbo.getDb();
+      db_connect.collection("records").insertOne(user, function (err, res) {
+        if (err) throw err;
+        console.log("1 document inserted");
+      });
+
+      // Set route to return to
       const returnTo = req.session.returnTo;
       delete req.session.returnTo;
       res.redirect(returnTo || "/");
@@ -65,6 +77,10 @@ router.get("/logout", (req, res, next) => {
   };
 
   req.logOut((err) => (err ? err : loggingOut()));
+});
+
+router.get("/logged-in-user", (req, res, next) => {
+  res.send("Data");
 });
 
 /**

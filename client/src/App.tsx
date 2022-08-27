@@ -22,7 +22,7 @@ const App = () => {
       .then((data) => setUsersInDB(data.json().body.toString()));
   }, []);
 
-  // Goal is to
+  // Goal is to get user data from DB via express server and then present this data in React client
 
   return (
     <div>
